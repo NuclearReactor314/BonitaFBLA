@@ -71,3 +71,22 @@ footer {
     padding: 10px;
     text-align: center;
 }
+
+#search-bar {
+    margin: 20px 0;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    margin-right: 10px;
+    width: 200px;
+}
+
+button {
+    padding: 8px 16px;
+}
