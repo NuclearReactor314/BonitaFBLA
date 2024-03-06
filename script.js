@@ -27,11 +27,12 @@ function displaySearchResults(results) {
     resultContainer.innerHTML = ""; // Clear previous results
 
     if (results.length === 0) {
-        resultContainer.innerHTML = "No results found.";
+        resultContainer.innerHTML = "<p>No results found.</p>";
     } else {
         for (var i = 0; i < results.length; i++) {
             var resultItem = document.createElement("div");
-            resultItem.textContent = results[i].title + " - Category: " + results[i].category;
+            resultItem.className = "search-result";
+            resultItem.innerHTML = "<p>Title: " + results[i].title + "</p><p>Category: " + results[i].category + "</p>";
             resultContainer.appendChild(resultItem);
         }
     }
