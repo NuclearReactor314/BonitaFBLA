@@ -1,6 +1,62 @@
 let isLoggedIn = false;
 let currentUserEmail = '';
 
+// Function to update the display with logged-in user's email
+function updateLoggedInUserDisplay() {
+    const loggedInUserElement = document.getElementById('loggedInUser');
+    if (isLoggedIn) {
+        loggedInUserElement.textContent = `Logged in as: ${currentUserEmail}`;
+    } else {
+        loggedInUserElement.textContent = '';
+    }
+}
+
+// Function to close registration popup
+function closeRegistrationPopup() {
+    // Implement the logic to close your registration popup here
+}
+
+// Function to check if the email is from 'busd.school'
+function isValidEmail(email) {
+    const allowedDomain = 'busd.school';
+    const lowercasedEmail = email.toLowerCase();
+
+    if (lowercasedEmail.endsWith('@' + allowedDomain)) {
+        return true;
+    } else {
+        alert('Invalid email! Please use a busd.school email address.');
+        return false;
+    }
+}
+
+// Function to manually register a user
+function registerUserManually(email, password) {
+    // Implement your user registration logic here
+    alert(`User registered with email: ${email} and password: ${password}`);
+}
+
+// Function to display registration prompt
+function displayRegistrationPrompt() {
+    const registrationPrompt = confirm('You need to register to access the website. Click "OK" to register.');
+
+    if (registrationPrompt) {
+        // User clicked "OK" to register
+        const email = prompt('Enter your email:');
+        const password = prompt('Enter your password:');
+
+        // Call your registration function with email and password
+        registerUserManually(email, password);
+
+        // Close the registration popup
+        closeRegistrationPopup();
+    } else {
+        // User clicked "Cancel" or closed the prompt
+        // You can handle this as needed, for example, redirecting or displaying a message
+        alert('You must register to access the website.');
+        window.location.href = 'https://www.your-redirect-page.com'; // Replace with your redirect page
+    }
+}
+
 function registerUser(event) {
     event.preventDefault();
 
@@ -12,7 +68,12 @@ function registerUser(event) {
         return;
     }
 
-    // 查重
+    // Check if the email domain is busd.school
+    if (!isValidEmail(email)) {
+        return;
+    }
+
+    // Check if the user is already registered
     const existingUser = getUser(email);
 
     if (existingUser) {
@@ -23,14 +84,16 @@ function registerUser(event) {
         isLoggedIn = true;
         currentUserEmail = email;
 
-        // 更新数据，存储在DATA.md
+        // Update the DATA.md file with the new user
         updateData();
 
         alert('Registration successful!');
         toggleContentVisibility();
+        updateLoggedInUserDisplay(); // Update the display with logged-in user's email
     }
 }
 
+// Function to log in a user
 function loginUser(event) {
     event.preventDefault();
 
@@ -42,7 +105,7 @@ function loginUser(event) {
         return;
     }
 
-    // 核对数据，邮箱和密码
+    // Check if the user exists and the password is correct
     const existingUser = getUser(email);
 
     if (existingUser && existingUser.password === password) {
@@ -50,82 +113,13 @@ function loginUser(event) {
         currentUserEmail = email;
         alert('Login successful!');
         toggleContentVisibility();
+        updateLoggedInUserDisplay(); // Update the display with logged-in user's email
     } else {
         alert('Invalid email or password!');
     }
 }
 
-function getUser(email) {
-    const users = getUsers();
-    return users.find(user => user.email === email);
-}
+// ...（其他代码保持不变）
 
-function getUsers() {
-    const usersText = getReadmeText();
-    const users = parseUsersFromReadme(usersText);
-    return users;
-}
-
-function saveUser(user) {
-    const users = getUsers();
-    users.push(user);
-
-    // Save the updated user list to DATA.md
-    updateData(users);
-}
-
-function getReadmeText() {
-    const readmeUrl = 'https://raw.githubusercontent.com/your-username/your-repo/main/DATA.md';
-    const response = fetch(readmeUrl);
-    return response.then(res => res.text());
-}
-
-function parseUsersFromReadme(readmeText) {
-    const users = [];
-    const userRegex = /\| ([^|]+) \| ([^|]+) \|/g;
-    let match;
-
-    while ((match = userRegex.exec(readmeText)) !== null) {
-        const email = match[1].trim();
-        const password = match[2].trim();
-        users.push({ email, password });
-    }
-
-    return users;
-}
-
-function updateData(users) {
-    const dataUrl = 'https://github.com/NuclearReactor314/BonitaFBLA.git/main/DATA.md';
-
-    // If users parameter is not provided, use the existing users
-    if (!users) {
-        users = getUsers();
-    }
-
-    // Construct the updated DATA.md content
-    let updatedData = '# User Database\n\n## Users\n\n| Email | Password |\n| --- | --- |\n';
-
-    users.forEach(user => {
-        updatedData += `| ${user.email} | ${user.password} |\n`;
-    });
-
-    // Update DATA.md using GitHub API (requires appropriate GitHub token)
-    // You may need to use a server-side script for this operation due to CORS restrictions
-
-    // For example, using fetch and GitHub API:
-    /*
-    fetch(dataUrl, {
-        method: 'PUT',
-        headers: {
-            Authorization: 'Bearer YOUR_GITHUB_TOKEN',
-        },
-        body: JSON.stringify({
-            message: 'Update user data',
-            content: btoa(updatedData), // Convert to base64
-            sha: 'SHA_OF_EXISTING_DATA', // Replace with the actual SHA
-        }),
-    });
-    */
-
-    // For simplicity, you might manually update DATA.md on GitHub after testing
-}
+// Update the display with logged-in user's email on script load
+updateLoggedInUserDisplay();
