@@ -12,7 +12,7 @@ function registerUser(event) {
         return;
     }
 
-    // Check if the user is already registered
+    // 查重
     const existingUser = getUser(email);
 
     if (existingUser) {
@@ -23,7 +23,7 @@ function registerUser(event) {
         isLoggedIn = true;
         currentUserEmail = email;
 
-        // Update the DATA.md file with the new user
+        // 更新数据，存储在DATA.md
         updateData();
 
         alert('Registration successful!');
@@ -42,7 +42,7 @@ function loginUser(event) {
         return;
     }
 
-    // Check if the user exists and the password is correct
+    // 核对数据，邮箱和密码
     const existingUser = getUser(email);
 
     if (existingUser && existingUser.password === password) {
