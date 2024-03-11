@@ -1,41 +1,49 @@
 let isLoggedIn = false;
 
-function registerUser(event) {
+async function registerUser(event) {
     event.preventDefault();
 
-    // Get the entered email
+    // Get the entered email and password
     const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-    // Check if the email ends with 'busd.school'
-    const allowedDomain = 'busd.school';
-    const lowercasedEmail = email.toLowerCase();
+    // Send registration data to the server for verification
+    const registrationSuccessful = await sendRegistrationData(email, password);
 
-    if (lowercasedEmail.endsWith('@' + allowedDomain)) {
+    if (registrationSuccessful) {
         isLoggedIn = true;
-        alert('Login successful!');
+        alert('Registration / Login successful!');
         toggleContentVisibility();
     } else {
-        alert('Invalid email! Please use a busd.school email address.');
+        alert('Invalid email or password! Please use a busd.school email address and provide the correct password.');
     }
+}
+
+async function sendRegistrationData(email, password) {
+    // Send registration data to the server (you need to implement this on the server)
+    const response = await fetch('/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    const result = await response.json();
+
+    return result.success;
 }
 
 function toggleContentVisibility() {
     const registrationSection = document.getElementById('registration');
     const mainNav = document.getElementById('main-nav');
     const mainContent = document.getElementById('main-content');
-    const fbla2324Nav = document.getElementById('fbla-23-24-nav');
-    const fbla2324Content = document.getElementById('fbla-23-24-content');
-    const fbla2425Nav = document.getElementById('fbla-24-25-nav');
-    const fbla2425Content = document.getElementById('fbla-24-25-content');
 
     if (isLoggedIn) {
         registrationSection.style.display = 'none';
         mainNav.style.display = 'block';
         mainContent.style.display = 'block';
-        fbla2324Nav.style.display = 'block';
-        fbla2324Content.style.display = 'block';
-        fbla2425Nav.style.display = 'block';
-        fbla2425Content.style.display = 'block';
+        // Show other content based on login status
     } else {
         alert('Please login to access the content.');
     }
