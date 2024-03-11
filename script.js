@@ -1,50 +1,131 @@
 let isLoggedIn = false;
+let currentUserEmail = '';
 
-async function registerUser(event) {
+function registerUser(event) {
     event.preventDefault();
 
-    // Get the entered email and password
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    // Send registration data to the server for verification
-    const registrationSuccessful = await sendRegistrationData(email, password);
+    if (isLoggedIn) {
+        alert('You are already logged in.');
+        return;
+    }
 
-    if (registrationSuccessful) {
-        isLoggedIn = true;
-        alert('Registration / Login successful!');
-        toggleContentVisibility();
+    // Check if the user is already registered
+    const existingUser = getUser(email);
+
+    if (existingUser) {
+        alert('Email is already registered.');
     } else {
-        alert('Invalid email or password! Please use a busd.school email address and provide the correct password.');
+        // Register the user
+        saveUser({ email, password });
+        isLoggedIn = true;
+        currentUserEmail = email;
+
+        // Update the README.md file with the new user
+        updateReadme();
+
+        alert('Registration successful!');
+        toggleContentVisibility();
     }
 }
 
-async function sendRegistrationData(email, password) {
-    // Send registration data to the server (you need to implement this on the server)
-    const response = await fetch('/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-    });
+function loginUser(event) {
+    event.preventDefault();
 
-    const result = await response.json();
-
-    return result.success;
-}
-
-function toggleContentVisibility() {
-    const registrationSection = document.getElementById('registration');
-    const mainNav = document.getElementById('main-nav');
-    const mainContent = document.getElementById('main-content');
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
     if (isLoggedIn) {
-        registrationSection.style.display = 'none';
-        mainNav.style.display = 'block';
-        mainContent.style.display = 'block';
-        // Show other content based on login status
-    } else {
-        alert('Please login to access the content.');
+        alert('You are already logged in.');
+        return;
     }
+
+    // Check if the user exists and the password is correct
+    const existingUser = getUser(email);
+
+    if (existingUser && existingUser.password === password) {
+        isLoggedIn = true;
+        currentUserEmail = email;
+        alert('Login successful!');
+        toggleContentVisibility();
+    } else {
+        alert('Invalid email or password!');
+    }
+}
+
+function getUser(email) {
+    const users = getUsers();
+    return users.find(user => user.email === email);
+}
+
+function getUsers() {
+    const usersText = getReadmeText();
+    const users = parseUsersFromReadme(usersText);
+    return users;
+}
+
+function saveUser(user) {
+    const users = getUsers();
+    users.push(user);
+
+    // Save the updated user list to README.md
+    updateReadme(users);
+}
+
+function getReadmeText() {
+    const readmeUrl = 'https://raw.githubusercontent.com/your-username/your-repo/main/README.md';
+    const response = fetch(readmeUrl);
+    return response.then(res => res.text());
+}
+
+function parseUsersFromReadme(readmeText) {
+    const users = [];
+    const userRegex = /\| ([^|]+) \| ([^|]+) \|/g;
+    let match;
+
+    while ((match = userRegex.exec(readmeText)) !== null) {
+        const email = match[1].trim();
+        const password = match[2].trim();
+        users.push({ email, password });
+    }
+
+    return users;
+}
+
+function updateReadme(users) {
+    const readmeUrl = 'https://github.com/NuclearReactor314/BonitaFBLA.git/main/DATA.md';
+
+    // If users parameter is not provided, use the existing users
+    if (!users) {
+        users = getUsers();
+    }
+
+    // Construct the updated README content
+    let updatedReadme = '# User Database\n\n## Users\n\n| Email | Password |\n| --- | --- |\n';
+
+    users.forEach(user => {
+        updatedReadme += `| ${user.email} | ${user.password} |\n`;
+    });
+
+    // Update README.md using GitHub API (requires appropriate GitHub token)
+    // You may need to use a server-side script for this operation due to CORS restrictions
+
+    // For example, using fetch and GitHub API:
+    /*
+    fetch(readmeUrl, {
+        method: 'PUT',
+        headers: {
+            Authorization: 'Bearer YOUR_GITHUB_TOKEN',
+        },
+        body: JSON.stringify({
+            message: 'Update user data',
+            content: btoa(updatedReadme), // Convert to base64
+            sha: 'SHA_OF_EXISTING_README', // Replace with the actual SHA
+        }),
+    });
+    */
+
+    // For simplicity, you might manually update README.md on GitHub after testing
 }
