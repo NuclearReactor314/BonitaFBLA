@@ -23,8 +23,8 @@ function registerUser(event) {
         isLoggedIn = true;
         currentUserEmail = email;
 
-        // Update the README.md file with the new user
-        updateReadme();
+        // Update the DATA.md file with the new user
+        updateData();
 
         alert('Registration successful!');
         toggleContentVisibility();
@@ -70,12 +70,12 @@ function saveUser(user) {
     const users = getUsers();
     users.push(user);
 
-    // Save the updated user list to README.md
-    updateReadme(users);
+    // Save the updated user list to DATA.md
+    updateData(users);
 }
 
 function getReadmeText() {
-    const readmeUrl = 'https://raw.githubusercontent.com/your-username/your-repo/main/README.md';
+    const readmeUrl = 'https://raw.githubusercontent.com/your-username/your-repo/main/DATA.md';
     const response = fetch(readmeUrl);
     return response.then(res => res.text());
 }
@@ -94,38 +94,38 @@ function parseUsersFromReadme(readmeText) {
     return users;
 }
 
-function updateReadme(users) {
-    const readmeUrl = 'https://github.com/NuclearReactor314/BonitaFBLA.git/main/DATA.md';
+function updateData(users) {
+    const dataUrl = 'https://github.com/NuclearReactor314/BonitaFBLA.git/main/DATA.md';
 
     // If users parameter is not provided, use the existing users
     if (!users) {
         users = getUsers();
     }
 
-    // Construct the updated README content
-    let updatedReadme = '# User Database\n\n## Users\n\n| Email | Password |\n| --- | --- |\n';
+    // Construct the updated DATA.md content
+    let updatedData = '# User Database\n\n## Users\n\n| Email | Password |\n| --- | --- |\n';
 
     users.forEach(user => {
-        updatedReadme += `| ${user.email} | ${user.password} |\n`;
+        updatedData += `| ${user.email} | ${user.password} |\n`;
     });
 
-    // Update README.md using GitHub API (requires appropriate GitHub token)
+    // Update DATA.md using GitHub API (requires appropriate GitHub token)
     // You may need to use a server-side script for this operation due to CORS restrictions
 
     // For example, using fetch and GitHub API:
     /*
-    fetch(readmeUrl, {
+    fetch(dataUrl, {
         method: 'PUT',
         headers: {
             Authorization: 'Bearer YOUR_GITHUB_TOKEN',
         },
         body: JSON.stringify({
             message: 'Update user data',
-            content: btoa(updatedReadme), // Convert to base64
-            sha: 'SHA_OF_EXISTING_README', // Replace with the actual SHA
+            content: btoa(updatedData), // Convert to base64
+            sha: 'SHA_OF_EXISTING_DATA', // Replace with the actual SHA
         }),
     });
     */
 
-    // For simplicity, you might manually update README.md on GitHub after testing
+    // For simplicity, you might manually update DATA.md on GitHub after testing
 }
