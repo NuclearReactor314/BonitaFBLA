@@ -1,39 +1,42 @@
-var searchData = [
-    { title: "California FBLA Competitive Events Planning Worksheet_2324.xlsx", category: "2023-2024" },
-    { title: "2023-2024 California Competitive Event Guidelines.pdf", category: "2023-2024" },
-    { title: "Interview Events (Starting at Section)", category: "Events Starting at Section" },
-    { title: "Events Starting at State", category: "Events Starting at State" }
-    // Add more sample data as needed
-];
+let isLoggedIn = false;
 
-function performSearch() {
-    var searchTerm = document.getElementById("search").value.toLowerCase();
-    var searchResults = [];
+function registerUser(event) {
+    event.preventDefault();
 
-    for (var i = 0; i < searchData.length; i++) {
-        var title = searchData[i].title.toLowerCase();
-        var category = searchData[i].category.toLowerCase();
+    // Get the entered email
+    const email = document.getElementById('email').value;
 
-        if (title.includes(searchTerm) || category.includes(searchTerm)) {
-            searchResults.push(searchData[i]);
-        }
+    // Check if the email ends with 'busd.school'
+    const allowedDomain = 'busd.school';
+    const lowercasedEmail = email.toLowerCase();
+
+    if (lowercasedEmail.endsWith('@' + allowedDomain)) {
+        isLoggedIn = true;
+        alert('Login successful!');
+        toggleContentVisibility();
+    } else {
+        alert('Invalid email! Please use a busd.school email address.');
     }
-
-    displaySearchResults(searchResults);
 }
 
-function displaySearchResults(results) {
-    var resultContainer = document.getElementById("search-results");
-    resultContainer.innerHTML = ""; // Clear previous results
+function toggleContentVisibility() {
+    const registrationSection = document.getElementById('registration');
+    const mainNav = document.getElementById('main-nav');
+    const mainContent = document.getElementById('main-content');
+    const fbla2324Nav = document.getElementById('fbla-23-24-nav');
+    const fbla2324Content = document.getElementById('fbla-23-24-content');
+    const fbla2425Nav = document.getElementById('fbla-24-25-nav');
+    const fbla2425Content = document.getElementById('fbla-24-25-content');
 
-    if (results.length === 0) {
-        resultContainer.innerHTML = "<p>No results found.</p>";
+    if (isLoggedIn) {
+        registrationSection.style.display = 'none';
+        mainNav.style.display = 'block';
+        mainContent.style.display = 'block';
+        fbla2324Nav.style.display = 'block';
+        fbla2324Content.style.display = 'block';
+        fbla2425Nav.style.display = 'block';
+        fbla2425Content.style.display = 'block';
     } else {
-        for (var i = 0; i < results.length; i++) {
-            var resultItem = document.createElement("div");
-            resultItem.className = "search-result";
-            resultItem.innerHTML = "<p>Title: " + results[i].title + "</p><p>Category: " + results[i].category + "</p>";
-            resultContainer.appendChild(resultItem);
-        }
+        alert('Please login to access the content.');
     }
 }
