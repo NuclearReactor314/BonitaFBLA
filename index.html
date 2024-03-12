@@ -29,28 +29,34 @@
         </ul>
 
  <script>
-        // Display registration prompt
-        const registrationPrompt = confirm('You need to register to access the website. Click "OK" to register.');
-        
-        if (registrationPrompt) {
-            // User clicked "OK" to register
-            const email = prompt('Enter your email:');
-            const password = prompt('Enter your password:');
+            // Display registration prompt
+            const registrationPrompt = confirm('You need to register to access the website. Click "OK" to register.');
 
-            // Call your registration function with email and password
-            registerUserManually(email, password);
-        } else {
-            // User clicked "Cancel" or closed the prompt
-            // You can handle this as needed, for example, redirecting or displaying a message
-            alert('You must register to access the website.');
-            window.location.href = 'https://www.your-redirect-page.com'; // Replace with your redirect page
-        }
+            if (registrationPrompt) {
+                // Prompt user to enter email and password
+                let email = '';
+                let password = '';
 
-        function registerUserManually(email, password) {
-            // Implement your user registration logic here
-            alert(`User registered with email: ${email} and password: ${password}`);
-        }
-    </script>
+                // Loop until user enters valid email and password
+                while (email.trim() === '' || password.trim() === '') {
+                    email = prompt('Enter your email:');
+                    password = prompt('Enter your password:');
+                }
+
+                // Call your registration function with email and password
+                registerUserManually(email, password);
+            } else {
+                // User clicked "Cancel" or closed the prompt
+                // You can handle this as needed, for example, redirecting or displaying a message
+                alert('You must register to access the website.');
+                window.location.href = 'https://www.your-redirect-page.com'; // Replace with your redirect page
+            }
+
+            function registerUserManually(email, password) {
+                // Implement your user registration logic here
+                alert(`User registered with email: ${email} and password: ${password}`);
+            }
+        </script>
         
     <nav>
         <b>FBLA 2023-2024</b>
