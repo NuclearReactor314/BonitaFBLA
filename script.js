@@ -32,7 +32,34 @@ function isValidEmail(email) {
 // Function to manually register a user
 function registerUserManually(email, password) {
     // Implement your user registration logic here
-    alert(`User registered with email: ${email} and password: ${password}`);
+    // For demonstration, let's assume you have a SQLite database named 'users.db' and a table named 'users'
+    // You need to adjust this code according to your actual setup
+    const sqlite3 = require('sqlite3').verbose();
+    const db = new sqlite3.Database('users.db');
+
+    db.serialize(function() {
+        // Check if the user already exists
+        db.get("SELECT * FROM users WHERE email = ?", email, function(err, row) {
+            if (err) {
+                console.error(err.message);
+                return;
+            }
+            if (row) {
+                alert('Email is already registered.');
+            } else {
+                // Insert the new user into the database
+                db.run("INSERT INTO users (email, password) VALUES (?, ?)", [email, password], function(err) {
+                    if (err) {
+                        console.error(err.message);
+                        return;
+                    }
+                    alert('Registration successful!');
+                });
+            }
+        });
+    });
+
+    db.close();
 }
 
 // Function to display registration prompt
@@ -57,42 +84,6 @@ function displayRegistrationPrompt() {
     }
 }
 
-function registerUser(event) {
-    event.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    if (isLoggedIn) {
-        alert('You are already logged in.');
-        return;
-    }
-
-    // Check if the email domain is busd.school
-    if (!isValidEmail(email)) {
-        return;
-    }
-
-    // Check if the user is already registered
-    const existingUser = getUser(email);
-
-    if (existingUser) {
-        alert('Email is already registered.');
-    } else {
-        // Register the user
-        saveUser({ email, password });
-        isLoggedIn = true;
-        currentUserEmail = email;
-
-        // Update the DATA.md file with the new user
-        updateData();
-
-        alert('Registration successful!');
-        toggleContentVisibility();
-        updateLoggedInUserDisplay(); // Update the display with logged-in user's email
-    }
-}
-
 // Function to log in a user
 function loginUser(event) {
     event.preventDefault();
@@ -106,20 +97,29 @@ function loginUser(event) {
     }
 
     // Check if the user exists and the password is correct
-    const existingUser = getUser(email);
+    // For demonstration, assume you have a SQLite database named 'users.db' and a table named 'users'
+    // You need to adjust this code according to your actual setup
+    const sqlite3 = require('sqlite3').verbose();
+    const db = new sqlite3.Database('users.db');
 
-    if (existingUser && existingUser.password === password) {
-        isLoggedIn = true;
-        currentUserEmail = email;
-        alert('Login successful!');
-        toggleContentVisibility();
-        updateLoggedInUserDisplay(); // Update the display with logged-in user's email
-    } else {
-        alert('Invalid email or password!');
-    }
+    db.get("SELECT * FROM users WHERE email = ? AND password = ?", [email, password], function(err, row) {
+        if (err) {
+            console.error(err.message);
+            return;
+        }
+        if (row) {
+            isLoggedIn = true;
+            currentUserEmail = email;
+            alert('Login successful!');
+            toggleContentVisibility();
+            updateLoggedInUserDisplay(); // Update the display with logged-in user's email
+        } else {
+            alert('Invalid email or password!');
+        }
+    });
+
+    db.close();
 }
-
-// ...（其他代码保持不变）
 
 // Update the display with logged-in user's email on script load
 updateLoggedInUserDisplay();
