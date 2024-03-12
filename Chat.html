@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question/Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .post {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .post textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .reply {
+            margin-left: 20px;
+            border-left: 2px solid #ccc;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>论坛</h1>
+
+    <!-- 发帖区域 -->
+    <div class="post">
+        <textarea id="postContent" placeholder="Enter text"></textarea>
+        <label for="anonymous">Anonymous:</label>
+        <input type="checkbox" id="anonymous"><br>
+        <button onclick="submitPost()">Submit</button>
+    </div>
+
+    <!-- 帖子列表 -->
+    <div id="postList">
+        <!-- 帖子将会在这里显示 -->
+    </div>
+
+    <script>
+        // 假设已经有一个用于存储帖子的数组
+        let posts = [];
+
+        // 发帖函数
+        function submitPost() {
+            const postContent = document.getElementById('postContent').value;
+            const isAnonymous = document.getElementById('anonymous').checked;
+
+            // 创建一个帖子对象
+            const post = {
+                content: postContent,
+                anonymous: isAnonymous
+            };
+
+            // 将帖子添加到帖子数组中
+            posts.push(post);
+
+            // 刷新帖子列表
+            displayPosts();
+        }
+
+        // 显示帖子列表
+        function displayPosts() {
+            const postList = document.getElementById('postList');
+            postList.innerHTML = '';
+
+            posts.forEach((post, index) => {
+                // 创建帖子元素
+                const postElement = document.createElement('div');
+                postElement.classList.add('post');
+                postElement.innerHTML = `
+                    <p>${post.anonymous ? 'Anonymous' : 'Normal'}</p>
+                    <p>${post.content}</p>
+                    <div class="reply">
+                        <textarea id="replyContent-${index}" placeholder="Rely"></textarea>
+                        <button onclick="submitReply(${index})">Submit</button>
+                    </div>
+                `;
+
+                // 将帖子元素添加到帖子列表中
+                postList.appendChild(postElement);
+            });
+        }
+
+        // 回帖函数
+        function submitReply(postIndex) {
+            const replyContent = document.getElementById(`replyContent-${postIndex}`).value;
+
+            // 创建一个回帖对象
+            const reply = {
+                content: replyContent
+            };
+
+            // 将回帖添加到对应帖子的回帖数组中
+            if (!posts[postIndex].replies) {
+                posts[postIndex].replies = [];
+            }
+            posts[postIndex].replies.push(reply);
+
+            // 刷新帖子列表
+            displayPosts();
+        }
+
+        // 初始化显示帖子列表
+        displayPosts();
+    </script>
+
+</body>
+</html>
