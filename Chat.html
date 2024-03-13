@@ -43,9 +43,9 @@
         <!-- 帖子将会在这里显示 -->
     </div>
 
-    <script>
-        // 假设已经有一个用于存储帖子的数组
-        let posts = [];
+<script>
+        // 初始化帖子数组，如果 localStorage 中有存储帖子，则读取，否则初始化为空数组
+        let posts = JSON.parse(localStorage.getItem('posts')) || [];
 
         // 发帖函数
         function submitPost() {
@@ -56,11 +56,15 @@
             // 创建一个帖子对象
             const post = {
                 content: postContent,
-                author: isAnonymous ? 'Anonymous' : postAuthor
+                author: isAnonymous ? '匿名用户' : postAuthor,
+                replies: [] // 初始化回帖数组为空
             };
 
             // 将帖子添加到帖子数组中
             posts.push(post);
+
+            // 将帖子数组保存到 localStorage 中
+            localStorage.setItem('posts', JSON.stringify(posts));
 
             // 刷新帖子列表
             displayPosts();
@@ -80,7 +84,7 @@
                     <p>${post.content}</p>
                     <div class="reply">
                         <textarea id="replyContent-${index}" placeholder="Enter text"></textarea><br>
-                        <input type="text" id="replyAuthor-${index}" placeholder="Enter name">
+                        <input type="text" id="replyAuthor-${index}" placeholder="Name">
                         <button onclick="submitReply(${index})">Submit</button>
                     </div>
                 `;
@@ -102,10 +106,10 @@
             };
 
             // 将回帖添加到对应帖子的回帖数组中
-            if (!posts[postIndex].replies) {
-                posts[postIndex].replies = [];
-            }
             posts[postIndex].replies.push(reply);
+
+            // 更新 localStorage 中的帖子数据
+            localStorage.setItem('posts', JSON.stringify(posts));
 
             // 刷新帖子列表
             displayPosts();
@@ -114,6 +118,5 @@
         // 初始化显示帖子列表
         displayPosts();
     </script>
-
 </body>
 </html>
