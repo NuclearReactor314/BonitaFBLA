@@ -28,6 +28,7 @@
 <body>
 
     <h1>Question/Chat</h1>
+    <button onclick="clearPosts()">Clear Posts</button>
 
     <!-- 发帖区域 -->
     <div class="post">
@@ -128,7 +129,18 @@
         }
 
         // 初始化显示帖子列表
+    
         displayPosts();
+    function clearPosts() {
+    // 清空帖子数组
+    posts = [];
+    
+    // 清空 localStorage 中的帖子数据
+    localStorage.removeItem('posts');
+    
+    // 刷新帖子列表
+    displayPosts();
+}
     </script>
 </body>
 </html>
