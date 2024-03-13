@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Question/Chat</title>
+    <title>Quesition/Chat</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,11 +27,12 @@
 </head>
 <body>
 
-    <h1>论坛</h1>
+    <h1>Question/Chat</h1>
 
     <!-- 发帖区域 -->
     <div class="post">
-        <textarea id="postContent" placeholder="Enter text"></textarea>
+        <textarea id="postContent" placeholder="Enter text"></textarea><br>
+        <input type="text" id="postAuthor" placeholder="Enter name">
         <label for="anonymous">Anonymous:</label>
         <input type="checkbox" id="anonymous"><br>
         <button onclick="submitPost()">Submit</button>
@@ -49,12 +50,13 @@
         // 发帖函数
         function submitPost() {
             const postContent = document.getElementById('postContent').value;
+            const postAuthor = document.getElementById('postAuthor').value;
             const isAnonymous = document.getElementById('anonymous').checked;
 
             // 创建一个帖子对象
             const post = {
                 content: postContent,
-                anonymous: isAnonymous
+                author: isAnonymous ? 'Anonymous' : postAuthor
             };
 
             // 将帖子添加到帖子数组中
@@ -74,10 +76,11 @@
                 const postElement = document.createElement('div');
                 postElement.classList.add('post');
                 postElement.innerHTML = `
-                    <p>${post.anonymous ? 'Anonymous' : 'Normal'}</p>
+                    <p>${post.author}</p>
                     <p>${post.content}</p>
                     <div class="reply">
-                        <textarea id="replyContent-${index}" placeholder="Rely"></textarea>
+                        <textarea id="replyContent-${index}" placeholder="Enter text"></textarea><br>
+                        <input type="text" id="replyAuthor-${index}" placeholder="Enter name">
                         <button onclick="submitReply(${index})">Submit</button>
                     </div>
                 `;
@@ -90,10 +93,12 @@
         // 回帖函数
         function submitReply(postIndex) {
             const replyContent = document.getElementById(`replyContent-${postIndex}`).value;
+            const replyAuthor = document.getElementById(`replyAuthor-${postIndex}`).value;
 
             // 创建一个回帖对象
             const reply = {
-                content: replyContent
+                content: replyContent,
+                author: replyAuthor
             };
 
             // 将回帖添加到对应帖子的回帖数组中
