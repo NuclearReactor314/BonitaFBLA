@@ -44,7 +44,7 @@
         <!-- 帖子将会在这里显示 -->
     </div>
 
-<script>
+    <script>
         // 初始化帖子数组，如果 localStorage 中有存储帖子，则读取，否则初始化为空数组
         let posts = JSON.parse(localStorage.getItem('posts')) || [];
 
@@ -96,47 +96,29 @@
                     </div>
                 `;
 
+                // 添加回帖部分
+                if (post.replies.length > 0) {
+                    post.replies.forEach(reply => {
+                        const replyElement = document.createElement('div');
+                        replyElement.classList.add('reply');
+                        replyElement.innerHTML = `
+                            <p>${reply.author}</p>
+                            <p>${reply.content}</p>
+                        `;
+                        postElement.appendChild(replyElement);
+                    });
+                }
+
                 // 将帖子元素添加到帖子列表中
                 postList.appendChild(postElement);
             });
         }
 
-       // 显示帖子列表
-function displayPosts() {
-    const postList = document.getElementById('postList');
-    postList.innerHTML = '';
+        // 回帖函数
+        function submitReply(postIndex) {
+            const replyContent = document.getElementById(`replyContent-${postIndex}`).value;
+            const replyAuthor = document.getElementById(`replyAuthor-${postIndex}`).value;
 
-    posts.forEach((post, index) => {
-        // 创建帖子元素
-        const postElement = document.createElement('div');
-        postElement.classList.add('post');
-        postElement.innerHTML = `
-            <p>${post.author}</p>
-            <p>${post.content}</p>
-            <div class="reply">
-                <textarea id="replyContent-${index}" placeholder="Enter text"></textarea><br>
-                <input type="text" id="replyAuthor-${index}" placeholder="Name">
-                <button onclick="submitReply(${index})">Submit</button>
-            </div>
-        `;
-
-        // 添加回帖部分
-        if (post.replies.length > 0) {
-            post.replies.forEach(reply => {
-                const replyElement = document.createElement('div');
-                replyElement.classList.add('reply');
-                replyElement.innerHTML = `
-                    <p>${reply.author}</p>
-                    <p>${reply.content}</p>
-                `;
-                postElement.appendChild(replyElement);
-            });
-        }
-
-        // 将帖子元素添加到帖子列表中
-        postList.appendChild(postElement);
-    });
-}
             // 检查回帖内容是否为空
             if (!replyContent.trim()) {
                 alert('Please enter reply content.');
@@ -160,10 +142,17 @@ function displayPosts() {
         }
 
         // 初始化显示帖子列表
-    
         displayPosts();
-    function clearPosts() {
-  
+
+        // 清空帖子函数
+        function clearPosts() {
+            // 清空帖子数组
+            posts = [];
+            // 清空 localStorage 中的帖子数据
+            localStorage.removeItem('posts');
+            // 刷新帖子列表
+            displayPosts();
+        }
     </script>
 </body>
 </html>
