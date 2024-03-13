@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quesition/Chat</title>
+    <title>Question/Chat</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,10 +53,16 @@
             const postAuthor = document.getElementById('postAuthor').value;
             const isAnonymous = document.getElementById('anonymous').checked;
 
+            // 检查输入框是否为空
+            if (!postContent.trim()) {
+                alert('Please enter post content.');
+                return;
+            }
+
             // 创建一个帖子对象
             const post = {
                 content: postContent,
-                author: isAnonymous ? '匿名用户' : postAuthor,
+                author: isAnonymous ? 'Anonymous' : postAuthor,
                 replies: [] // 初始化回帖数组为空
             };
 
@@ -98,6 +104,12 @@
         function submitReply(postIndex) {
             const replyContent = document.getElementById(`replyContent-${postIndex}`).value;
             const replyAuthor = document.getElementById(`replyAuthor-${postIndex}`).value;
+
+            // 检查回帖内容是否为空
+            if (!replyContent.trim()) {
+                alert('Please enter reply content.');
+                return;
+            }
 
             // 创建一个回帖对象
             const reply = {
