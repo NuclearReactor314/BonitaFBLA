@@ -35,3 +35,38 @@ connection.end((err) => {
   }
   console.log('Database connection closed.');
 });
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
+
+const app = express();
+const port = 3000;
+
+app.use(bodyParser.json());
+
+const connection = mysql.createConnection({
+    host: '76.168.46.4',
+    user: 'nuclearreactor',
+    password: 'dfufei6340',
+    database: 'ChatDatabase'
+});
+
+app.post('/posts', (req, res) => {
+    const { content, author } = req.body;
+
+    const sql = 'INSERT INTO posts (content, author) VALUES (?, ?)';
+    connection.query(sql, [content, author], (err, result) => {
+        if (err) {
+            console.error('Error inserting post into database:', err);
+            res.status(500).send('Error inserting post into database');
+            return;
+        }
+        console.log('Post inserted into database:', result);
+        res.status(200).send('Post inserted into database');
+    });
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
