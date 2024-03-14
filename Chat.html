@@ -45,11 +45,10 @@
     </div>
 
     <script>
-        // 初始化帖子数组，如果 localStorage 中有存储帖子，则读取，否则初始化为空数组
-        let posts = JSON.parse(localStorage.getItem('posts')) || [];
+        let posts = []; // 初始化帖子数组为空
 
         // 发帖函数
-        function submitPost() {
+        async function submitPost() {
             const postContent = document.getElementById('postContent').value;
             const postAuthor = document.getElementById('postAuthor').value;
             const isAnonymous = document.getElementById('anonymous').checked;
@@ -60,25 +59,26 @@
                 return;
             }
 
-            // 创建一个帖子对象
-            const post = {
-                content: postContent,
-                author: isAnonymous ? 'Anonymous' : postAuthor,
-                replies: [] // 初始化回帖数组为空
-            };
+            const response = await fetch('/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ content: postContent, author: isAnonymous ? 'Anonymous' : postAuthor })
+            });
 
-            // 将帖子添加到帖子数组中
-            posts.push(post);
-
-            // 将帖子数组保存到 localStorage 中
-            localStorage.setItem('posts', JSON.stringify(posts));
-
-            // 刷新帖子列表
-            displayPosts();
+            if (response.ok) {
+                displayPosts(); // 如果成功提交帖子，则刷新帖子列表
+            } else {
+                alert('Failed to submit post.');
+            }
         }
 
         // 显示帖子列表
-        function displayPosts() {
+        async function displayPosts() {
+            const response = await fetch('/posts');
+            const posts = await response.json();
+
             const postList = document.getElementById('postList');
             postList.innerHTML = '';
 
@@ -115,7 +115,7 @@
         }
 
         // 回帖函数
-        function submitReply(postIndex) {
+        async function submitReply(postIndex) {
             const replyContent = document.getElementById(`replyContent-${postIndex}`).value;
             const replyAuthor = document.getElementById(`replyAuthor-${postIndex}`).value;
 
@@ -131,28 +131,37 @@
                 author: replyAuthor
             };
 
-            // 将回帖添加到对应帖子的回帖数组中
-            posts[postIndex].replies.push(reply);
+            // 发送回帖到后端服务器
+            const response = await fetch(`/posts/${postIndex}/replies`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reply)
+            });
 
-            // 更新 localStorage 中的帖子数据
-            localStorage.setItem('posts', JSON.stringify(posts));
+            if (response.ok) {
+                displayPosts(); // 如果成功提交回帖，则刷新帖子列表
+            } else {
+                alert('Failed to submit reply.');
+            }
+        }
 
-            // 刷新帖子列表
-            displayPosts();
+        // 清空帖子函数
+        async function clearPosts() {
+            // 发送请求清空帖子到后端服务器
+            const response = await fetch('/clear-posts', { method: 'POST' });
+
+            if (response.ok) {
+                posts = []; // 清空帖子数组
+                displayPosts(); // 如果成功清空帖子，则刷新帖子列表
+            } else {
+                alert('Failed to clear posts.');
+            }
         }
 
         // 初始化显示帖子列表
         displayPosts();
-
-        // 清空帖子函数
-        function clearPosts() {
-            // 清空帖子数组
-            posts = [];
-            // 清空 localStorage 中的帖子数据
-            localStorage.removeItem('posts');
-            // 刷新帖子列表
-            displayPosts();
-        }
     </script>
 </body>
 </html>
