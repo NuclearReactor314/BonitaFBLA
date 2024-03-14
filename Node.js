@@ -70,3 +70,5 @@ app.post('/posts', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+node server.js
