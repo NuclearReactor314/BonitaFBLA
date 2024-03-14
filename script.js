@@ -123,3 +123,29 @@ function loginUser(event) {
 
 // Update the display with logged-in user's email on script load
 updateLoggedInUserDisplay();
+
+document.getElementById('postForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // 阻止默认表单提交行为
+
+    // 获取表单数据
+    const content = document.getElementById('content').value;
+    const author = document.getElementById('author').value;
+
+    // 发送 POST 请求到后端服务器
+    fetch('/posts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ content, author })
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log('Post submitted successfully:', data);
+        // 这里可以根据后端返回的数据执行相应的操作，例如显示成功消息或刷新页面
+    })
+    .catch(error => {
+        console.error('Error submitting post:', error);
+        // 这里可以处理请求失败的情况，例如显示错误消息或重新尝试提交
+    });
+});
