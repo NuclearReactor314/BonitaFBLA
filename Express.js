@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
+const path = require('path');
 
 const app = express();
 const port = 3000;
@@ -19,6 +20,11 @@ connection.connect((err) => {
     return;
   }
   console.log('Connected to database as id ' + connection.threadId);
+});
+
+// 提供 HTML 文件
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // 创建 API 端点来获取帖子数据
