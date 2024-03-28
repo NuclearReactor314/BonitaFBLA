@@ -5,6 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Bonita High School FBLA</title>
+    <style>
+        /* Sidebar styles */
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            padding-top: 50px; /* Keep some space for the header */
+        }
+
+        .sidebar h2 {
+            padding: 10px;
+            margin: 0;
+        }
+
+        .menu {
+            padding-left: 10px;
+            list-style: none;
+            margin: 0;
+        }
+
+        .menu li {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .submenu {
+            display: none;
+        }
+
+        .submenu li {
+            padding-left: 20px;
+        }
+
+        /* Hover effect */
+        .menu li:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
 
@@ -13,35 +56,46 @@
         <h1>Bonita High School FBLA</h1>
     </header>
 
-    <div class="menu">
+    <div class="sidebar">
         <h2>General Information</h2>
-        <ul>
-            <li><a href="https://www.fbla.org/" class="button">FBLA website</a></li>
-            <li><a href="General Information/23 FBLA dress code.pdf" class="button">Dress Code</a></li>
-            <li><a href="General Code/study guide.html" class="button">Study Guide</a></li>
-        </ul>
-    </div>
-
-    <div class="menu">
-        <h2>2023-2024 California FBLA</h2>
-        <ul>
-            <li><a href="2023-2024 California FBLA Competitive Event Guidelines/California FBLA Competitive Events Planning Worksheet_2324.xlsx" class="button">Planning Worksheet</a></li>
-            <li><a href="2023-2024 California FBLA Competitive Event Guidelines/2023-2024 California Competitive Event Guidelines.pdf" class="button">Event Guidelines</a></li>
-            <li><a href="23-24 code/2023-2024_events_starting_at_section.html" class="button">Events at Section</a></li>
-            <li><a href="23-24 code/2023-2024_events_starting_at_state.html" class="button">Events at State</a></li>
-        </ul>
-    </div>
-
-    <div class="menu">
-        <h2>2024-2025 California FBLA</h2>
-        <ul>
-            <li><a href="2024-2025 California FBLA Competitive Event Guidelines/FBLA 24-25 California guideline.pdf" class="button">Event Guidelines</a></li>
+        <ul class="menu">
+            <li>General
+                <ul class="submenu">
+                    <li><a href="https://www.fbla.org/" class="button">FBLA website</a></li>
+                    <li><a href="General Information/23 FBLA dress code.pdf" class="button">Dress Code</a></li>
+                    <li><a href="General Code/study guide.html" class="button">Study Guide</a></li>
+                </ul>
+            </li>
+            <li>FBLA 2023-2024
+                <ul class="submenu">
+                    <li><a href="2023-2024 California FBLA Competitive Event Guidelines/California FBLA Competitive Events Planning Worksheet_2324.xlsx" class="button">Planning Worksheet</a></li>
+                    <li><a href="2023-2024 California FBLA Competitive Event Guidelines/2023-2024 California Competitive Event Guidelines.pdf" class="button">Event Guidelines</a></li>
+                    <li><a href="23-24 code/2023-2024_events_starting_at_section.html" class="button">Events at Section</a></li>
+                    <li><a href="23-24 code/2023-2024_events_starting_at_state.html" class="button">Events at State</a></li>
+                </ul>
+            </li>
+            <li>FBLA 2024-2025
+                <ul class="submenu">
+                    <li><a href="2024-2025 California FBLA Competitive Event Guidelines/FBLA 24-25 California guideline.pdf" class="button">Event Guidelines</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 
     <footer>
         <p>Contact the website builder: codingluser314@gmail.com</p>
     </footer>
+
+    <script>
+        document.querySelectorAll('.menu > li').forEach(item => {
+            item.addEventListener('mouseover', function() {
+                this.querySelector('.submenu').style.display = 'block';
+            });
+            item.addEventListener('mouseout', function() {
+                this.querySelector('.submenu').style.display = 'none';
+            });
+        });
+    </script>
 
 </body>
 </html>
