@@ -80,6 +80,15 @@
             cursor: pointer;
             font-size: 24px; /* Adjust icon size */
         }
+
+        /* Main content styles */
+        main, header, footer {
+            transition: all 0.5s ease; /* Smooth transition for margin change */
+        }
+
+        .collapsed main, .collapsed header, .collapsed footer {
+            margin-left: 50px; /* Adjusted to accommodate the collapsed sidebar width */
+        }
     </style>
 </head>
 <body>
@@ -143,6 +152,12 @@
 
             const additionalText = document.querySelector('.additional-text');
             additionalText.classList.toggle('collapsed');
+
+            const mainContent = document.querySelector('main');
+            mainContent.classList.toggle('collapsed');
+
+            const footer = document.querySelector('footer');
+            footer.classList.toggle('collapsed');
         }
     </script>
 
