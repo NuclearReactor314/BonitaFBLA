@@ -41,26 +41,21 @@
             position: relative; /* Added to make submenu absolute position relative to menu item */
         }
 
-        .submenu {
-            position: absolute;
-            top: 0;
-            left: 100%; /* Position submenu to the right of the menu item */
-            background-color: #555; /* Background color for submenu */
-            padding: 8px;
-            z-index: 1; /* Ensure submenu appears above other content */
+       .submenu {
+            display: none;
+        }
+
+        .menu li:hover .submenu {
+            display: block;
         }
 
         .submenu li {
-            padding: 4px 0; /* Adjust submenu item padding */
+            padding-left: 20px;
         }
 
         /* Hover effect */
         .menu li:hover {
             background-color: #555;
-        }
-
-        .menu li:hover .submenu {
-            display: block; /* Show submenu on hover */
         }
 
         /* Adjustments for the header */
