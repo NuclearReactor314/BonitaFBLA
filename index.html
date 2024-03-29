@@ -44,6 +44,10 @@
             display: none;
         }
 
+        .menu li:hover .submenu {
+            display: block;
+        }
+
         .submenu li {
             padding-left: 20px;
         }
@@ -169,19 +173,21 @@
             const sidebar = document.getElementById('sidebar');
             const additionalText = document.querySelector('.additional-text');
             const header = document.querySelector('header');
-            const mainContent = document.querySelector('main');
             const footer = document.querySelector('footer');
-            
-            if (sidebar.classList.contains('collapsed')) {
+            const mainContent = document.querySelector('main');
+
+            const sidebarWidth = sidebar.offsetWidth; // 获取当前侧边栏的宽度
+
+            if (sidebarWidth === 50) { // 如果侧边栏收缩
                 additionalText.style.marginLeft = '70px';
                 header.style.marginLeft = '50px';
-                mainContent.style.marginLeft = '50px';
                 footer.style.marginLeft = '50px';
+                mainContent.style.marginLeft = '50px';
             } else {
-                additionalText.style.marginLeft = '200px';
+                additionalText.style.marginLeft = '220px';
                 header.style.marginLeft = '200px';
-                mainContent.style.marginLeft = '200px';
                 footer.style.marginLeft = '200px';
+                mainContent.style.marginLeft = '200px';
             }
         }
         
