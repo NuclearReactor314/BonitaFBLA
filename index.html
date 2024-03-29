@@ -41,23 +41,22 @@
             position: relative; /* Added to make submenu absolute position relative to menu item */
         }
 
-       .submenu {
-            display: none;
-        }
+     .submenu {
+    display: none;
+}
 
-        .menu li:hover .submenu {
-            display: block;
-        }
+.menu li.clicked .submenu {
+    display: block;
+}
 
-        .submenu li {
-            padding-left: 20px;
-        }
+.submenu li {
+    padding-left: 20px;
+}
 
-        /* Hover effect */
-        .menu li:hover {
-            background-color: #555;
-        }
-
+/* Hover effect */
+.menu li:hover {
+    background-color: #555;
+}
         /* Adjustments for the header */
         header {
             transition: all 0.5s ease; /* Smooth transition for margin change */
