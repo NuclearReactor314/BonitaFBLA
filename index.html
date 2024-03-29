@@ -17,10 +17,10 @@
             bottom: 0;
             overflow-y: auto;
             padding-top: 50px; /* Keep some space for the header */
-            transition: all 0.5s ease; /* Smooth transition for width change */
+            transition: width 0.5s ease; /* Smooth transition for width change */
         }
 
-        .sidebar.collapsed {
+        .collapsed {
             width: 50px; /* Collapsed width */
         }
 
@@ -55,7 +55,7 @@
 
         /* Adjustments for the header */
         header {
-            transition: all 0.5s ease; /* Smooth transition for margin change */
+            transition: margin-left 0.5s ease; /* Smooth transition for margin change */
         }
 
         .collapsed header {
@@ -66,7 +66,7 @@
         .additional-text {
             margin-top: 100px; /* Increased margin to create space between the sidebar and text */
             padding: 10px;
-            transition: all 0.5s ease; /* Smooth transition for margin change */
+            transition: margin-left 0.5s ease; /* Smooth transition for margin change */
         }
 
         .collapsed .additional-text {
@@ -84,7 +84,7 @@
 
         /* Main content styles */
         main, header, footer {
-            transition: all 0.5s ease; /* Smooth transition for margin change */
+            transition: margin-left 0.5s ease; /* Smooth transition for margin change */
         }
 
         .collapsed main, .collapsed header, .collapsed footer {
@@ -154,43 +154,7 @@
 
             const additionalText = document.querySelector('.additional-text');
             additionalText.classList.toggle('collapsed');
-
-            const mainContent = document.querySelector('main');
-            mainContent.classList.toggle('collapsed');
-
-            const header = document.querySelector('header');
-            header.classList.toggle('collapsed');
-
-            const footer = document.querySelector('footer');
-            footer.classList.toggle('collapsed');
-
-            adjustMargins(); // Call function to adjust margins
         }
-
-        function adjustMargins() {
-            const sidebar = document.getElementById('sidebar');
-            const additionalText = document.querySelector('.additional-text');
-            const header = document.querySelector('header');
-            const footer = document.querySelector('footer');
-            const mainContent = document.querySelector('main');
-
-            const sidebarWidth = sidebar.offsetWidth; // Get the current width of sidebar
-
-            if (sidebarWidth === 50) { // If sidebar is collapsed
-                additionalText.style.marginLeft = '70px'; // Adjust margin for additional text
-                header.style.marginLeft = '50px'; // Adjust margin for header
-                footer.style.marginLeft = '50px'; // Adjust margin for footer
-                mainContent.style.marginLeft = '50px'; // Adjust margin for main content
-            } else {
-                additionalText.style.marginLeft = '220px'; // Adjust margin for additional text
-                header.style.marginLeft = '200px'; // Adjust margin for header
-                footer.style.marginLeft = '200px'; // Adjust margin for footer
-                mainContent.style.marginLeft = '200px'; // Adjust margin for main content
-            }
-        }
-
-        // Call adjustMargins() initially to set initial margins
-        adjustMargins();
     </script>
 
 </body>
