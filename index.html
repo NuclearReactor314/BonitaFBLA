@@ -38,23 +38,30 @@
         .menu li {
             padding: 8px;
             cursor: pointer;
+            position: relative; /* Added to make submenu absolute position relative to menu item */
         }
 
         .submenu {
             display: none;
-        }
-
-        .menu li:hover .submenu {
-            display: block;
+            position: absolute;
+            top: 0;
+            left: 100%; /* Position submenu to the right of the menu item */
+            background-color: #555; /* Background color for submenu */
+            padding: 8px;
+            z-index: 1; /* Ensure submenu appears above other content */
         }
 
         .submenu li {
-            padding-left: 20px;
+            padding: 4px 0; /* Adjust submenu item padding */
         }
 
         /* Hover effect */
         .menu li:hover {
             background-color: #555;
+        }
+
+        .menu li:hover .submenu {
+            display: block; /* Show submenu on hover */
         }
 
         /* Adjustments for the header */
@@ -173,21 +180,19 @@
             const sidebar = document.getElementById('sidebar');
             const additionalText = document.querySelector('.additional-text');
             const header = document.querySelector('header');
-            const footer = document.querySelector('footer');
             const mainContent = document.querySelector('main');
-
-            const sidebarWidth = sidebar.offsetWidth; // 获取当前侧边栏的宽度
-
-            if (sidebarWidth === 50) { // 如果侧边栏收缩
+            const footer = document.querySelector('footer');
+            
+            if (sidebar.classList.contains('collapsed')) {
                 additionalText.style.marginLeft = '70px';
                 header.style.marginLeft = '50px';
-                footer.style.marginLeft = '50px';
                 mainContent.style.marginLeft = '50px';
+                footer.style.marginLeft = '50px';
             } else {
-                additionalText.style.marginLeft = '220px';
+                additionalText.style.marginLeft = '200px';
                 header.style.marginLeft = '200px';
-                footer.style.marginLeft = '200px';
                 mainContent.style.marginLeft = '200px';
+                footer.style.marginLeft = '200px';
             }
         }
         
