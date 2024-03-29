@@ -42,7 +42,6 @@
         }
 
         .submenu {
-            display: none;
             position: absolute;
             top: 0;
             left: 100%; /* Position submenu to the right of the menu item */
@@ -180,21 +179,19 @@
             const sidebar = document.getElementById('sidebar');
             const additionalText = document.querySelector('.additional-text');
             const header = document.querySelector('header');
-            const footer = document.querySelector('footer');
             const mainContent = document.querySelector('main');
-
-            const sidebarWidth = sidebar.offsetWidth; // 获取当前侧边栏的宽度
-
-            if (sidebarWidth === 50) { // 如果侧边栏收缩
+            const footer = document.querySelector('footer');
+            
+            if (sidebar.classList.contains('collapsed')) {
                 additionalText.style.marginLeft = '70px';
                 header.style.marginLeft = '50px';
-                footer.style.marginLeft = '50px';
                 mainContent.style.marginLeft = '50px';
+                footer.style.marginLeft = '50px';
             } else {
-                additionalText.style.marginLeft = '220px';
+                additionalText.style.marginLeft = '200px';
                 header.style.marginLeft = '200px';
-                footer.style.marginLeft = '200px';
                 mainContent.style.marginLeft = '200px';
+                footer.style.marginLeft = '200px';
             }
         }
         
