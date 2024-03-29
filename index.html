@@ -17,6 +17,11 @@
             bottom: 0;
             overflow-y: auto;
             padding-top: 50px; /* Keep some space for the header */
+            transition: all 0.5s ease; /* Smooth transition for width change */
+        }
+
+        .sidebar.collapsed {
+            width: 50px; /* Collapsed width */
         }
 
         .sidebar h2 {
@@ -47,18 +52,33 @@
         .menu li:hover {
             background-color: #555;
         }
-        
+
         /* Adjustments for the header */
         header {
-            margin-left: 200px; /* Adjusted to accommodate the sidebar width */
-            text-align: center; /* Center the header text */
+            transition: all 0.5s ease; /* Smooth transition for margin change */
+        }
+
+        .collapsed header {
+            margin-left: 50px; /* Adjusted to accommodate the collapsed sidebar width */
         }
 
         /* Additional text styles */
         .additional-text {
             margin-top: 100px; /* Increased margin to create space between the sidebar and text */
-            margin-left: 220px; /* Adjusted to account for the sidebar width */
-            padding: 10px;
+            transition: all 0.5s ease; /* Smooth transition for margin change */
+        }
+
+        .collapsed .additional-text {
+            margin-left: 70px; /* Adjusted to account for the collapsed sidebar width */
+        }
+
+        /* Collapse button styles */
+        #collapse-btn {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            cursor: pointer;
+            font-size: 24px; /* Adjust icon size */
         }
     </style>
 </head>
@@ -69,7 +89,7 @@
         <h1>Bonita High School FBLA</h1>
     </header>
 
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
         <h2>FBLA Information</h2>
         <ul class="menu">
             <li>General
@@ -100,6 +120,7 @@
                 </ul>
             </li>
         </ul>
+        <div id="collapse-btn" onclick="toggleSidebar()">&#9776;</div>
     </div>
 
     <div class="additional-text">
@@ -113,14 +134,16 @@
     </footer>
 
     <script>
-        document.querySelectorAll('.menu > li').forEach(item => {
-            item.addEventListener('mouseover', function() {
-                this.querySelector('.submenu').style.display = 'block';
-            });
-            item.addEventListener('mouseout', function() {
-                this.querySelector('.submenu').style.display = 'none';
-            });
-        });
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+
+            const header = document.querySelector('header');
+            header.classList.toggle('collapsed');
+
+            const additionalText = document.querySelector('.additional-text');
+            additionalText.classList.toggle('collapsed');
+        }
     </script>
 
 </body>
