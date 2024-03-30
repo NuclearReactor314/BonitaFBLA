@@ -144,13 +144,35 @@
         <p>Check on the left part for more detail information instead of reading the useless sentence above.</p>
     </div>
 
-    <main>
-        <!-- Your main content here -->
+   <main>
+        <div id="calendar"></div> <!-- FullCalendar container -->
     </main>
 
     <footer>
         <p>Contact the website builder: codingluser314@gmail.com</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'dayGrid' ],
+                events: [
+                    {
+                        title: 'Event 1 (testing)',
+                        start: '2024-04-01' // 事件开始日期
+                    },
+                    {
+                        title: 'Event 2 (testing)',
+                        start: '2024-04-05'
+                    }
+                    // 可以添加更多事件
+                ]
+            });
+            calendar.render();
+        });
+    </script>
 
     <script>
         function toggleSidebar() {
