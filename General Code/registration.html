@@ -16,12 +16,12 @@
             left: 0;
             bottom: 0;
             overflow-y: auto;
-            padding-top: 50px; /* Keep some space for the header */
-            transition: all 0.5s ease; /* Smooth transition for width change */
+            padding-top: 50px; 
+            transition: all 0.5s ease; 
         }
 
         .sidebar.collapsed {
-            width: 50px; /* Collapsed width */
+            width: 50px; 
         }
 
         .sidebar h2 {
@@ -38,7 +38,7 @@
         .menu li {
             padding: 8px;
             cursor: pointer;
-            position: relative; /* Added to make submenu absolute position relative to menu item */
+            position: relative; 
         }
 
        .submenu {
@@ -57,43 +57,41 @@
         .menu li:hover {
             background-color: #555;
         }
-        /* Adjustments for the header */
+
         header {
-            transition: all 0.5s ease; /* Smooth transition for margin change */
+            transition: all 0.5s ease;
         }
 
         .collapsed header {
-            margin-left: 50px; /* Adjusted to accommodate the collapsed sidebar width */
+            margin-left: 50px;
         }
 
-        /* Additional text styles */
+
         .additional-text {
             padding: 10px;
-            transition: all 0.5s ease; /* Smooth transition for margin change */
-            margin-top: 100px; /* Increased margin to create space between the sidebar and text */
-            margin-left: 200px; /* Adjusted to account for the sidebar width */
+            transition: all 0.5s ease; 
+            margin-top: 100px; 
+            margin-left: 200px; 
         }
 
         .collapsed .additional-text {
-            margin-left: 70px; /* Adjusted to account for the collapsed sidebar width */
+            margin-left: 70px; 
         }
 
-        /* Collapse button styles */
         #collapse-btn {
             position: absolute;
             bottom: 10px;
             left: 10px;
             cursor: pointer;
-            font-size: 24px; /* Adjust icon size */
+            font-size: 24px; 
         }
 
-        /* Main content styles */
         main {
-            transition: all 0.5s ease; /* Smooth transition for margin change */
+            transition: all 0.5s ease; 
         }
 
         .collapsed-main {
-            margin-left: 50px; /* Adjusted to accommodate the collapsed sidebar width */
+            margin-left: 50px;
         }
     </style>
 </head>
@@ -140,7 +138,7 @@
     </div>
 
     <div class="additional-text">
-        <h2>JOIN US NOW</h2>
+        <h2>Are you interested?</h2>
     </div>
     
     <main>
@@ -165,7 +163,7 @@
             const header = document.querySelector('header');
             header.classList.toggle('collapsed');
             
-            adjustMargins(); // 调整边距
+            adjustMargins(); 
         }
         
         function adjustMargins() {
@@ -188,7 +186,6 @@
             }
         }
         
-        // 初始化调整边距
         adjustMargins();
     </script>
     
