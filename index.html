@@ -17,12 +17,11 @@
             left: 0;
             bottom: 0;
             overflow-y: auto;
-            padding-top: 50px; /* Keep some space for the header */
-            transition: all 0.5s ease; /* Smooth transition for width change */
-        }
+            padding-top: 50px; 
+            transition: all 0.5s ease; 
 
         .sidebar.collapsed {
-            width: 50px; /* Collapsed width */
+            width: 50px; 
         }
 
         .sidebar h2 {
@@ -39,7 +38,7 @@
         .menu li {
             padding: 8px;
             cursor: pointer;
-            position: relative; /* Added to make submenu absolute position relative to menu item */
+            position: relative; /* 不能动 */
         }
 
        .submenu {
@@ -58,37 +57,37 @@
         .menu li:hover {
             background-color: #555;
         }
-        /* Adjustments for the header */
+        /* 有用 */
         header {
-            transition: all 0.5s ease; /* Smooth transition for margin change */
+            transition: all 0.5s ease;
         }
 
         .collapsed header {
-            margin-left: 50px; /* Adjusted to accommodate the collapsed sidebar width */
+            margin-left: 50px; 
         }
 
-        /* Additional text styles */
+        
         .additional-text {
             padding: 10px;
-            transition: all 0.5s ease; /* Smooth transition for margin change */
-            margin-top: 100px; /* Increased margin to create space between the sidebar and text */
-            margin-left: 200px; /* Adjusted to account for the sidebar width */
+            transition: all 0.5s ease; 
+            margin-top: 100px; 
+            margin-left: 200px; 
         }
 
         .collapsed .additional-text {
-            margin-left: 70px; /* Adjusted to account for the collapsed sidebar width */
+            margin-left: 70px;
         }
 
-        /* Collapse button styles */
+       
         #collapse-btn {
             position: absolute;
             bottom: 10px;
             left: 10px;
             cursor: pointer;
-            font-size: 24px; /* Adjust icon size */
+            font-size: 24px; 
         }
 
-        /* Main content styles */
+
         main {
             transition: all 0.5s ease; /* Smooth transition for margin change */
         }
@@ -113,6 +112,7 @@
                     <li><a href="https://www.fbla.org/" class="button">FBLA website</a></li>
                     <li><a href="General Information/23 FBLA dress code.pdf" class="button">Dress Code</a></li>
                     <li><a href="General Code/study guide.html" class="button">Study Guide</a></li>
+                    <li><a href="General Information/23-24 High School Rating Sheet.pdf" class="button">Rating Sheet</a></li>
                 </ul>
             </li>
             <li>FBLA 2023-2024
