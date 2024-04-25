@@ -17,11 +17,12 @@
             left: 0;
             bottom: 0;
             overflow-y: auto;
-            padding-top: 50px; 
-            transition: all 0.5s ease; 
+            padding-top: 50px; /* Keep some space for the header */
+            transition: all 0.5s ease; /* Smooth transition for width change */
+        }
 
         .sidebar.collapsed {
-            width: 50px; 
+            width: 50px; /* Collapsed width */
         }
 
         .sidebar h2 {
@@ -38,7 +39,7 @@
         .menu li {
             padding: 8px;
             cursor: pointer;
-            position: relative; /* 不能动 */
+            position: relative; /* Added to make submenu absolute position relative to menu item */
         }
 
        .submenu {
@@ -57,37 +58,37 @@
         .menu li:hover {
             background-color: #555;
         }
-        /* 有用 */
+        /* Adjustments for the header */
         header {
-            transition: all 0.5s ease;
+            transition: all 0.5s ease; /* Smooth transition for margin change */
         }
 
         .collapsed header {
-            margin-left: 50px; 
+            margin-left: 50px; /* Adjusted to accommodate the collapsed sidebar width */
         }
 
-        
+        /* Additional text styles */
         .additional-text {
             padding: 10px;
-            transition: all 0.5s ease; 
-            margin-top: 100px; 
-            margin-left: 200px; 
+            transition: all 0.5s ease; /* Smooth transition for margin change */
+            margin-top: 100px; /* Increased margin to create space between the sidebar and text */
+            margin-left: 200px; /* Adjusted to account for the sidebar width */
         }
 
         .collapsed .additional-text {
-            margin-left: 70px;
+            margin-left: 70px; /* Adjusted to account for the collapsed sidebar width */
         }
 
-       
+        /* Collapse button styles */
         #collapse-btn {
             position: absolute;
             bottom: 10px;
             left: 10px;
             cursor: pointer;
-            font-size: 24px; 
+            font-size: 24px; /* Adjust icon size */
         }
 
-
+        /* Main content styles */
         main {
             transition: all 0.5s ease; /* Smooth transition for margin change */
         }
