@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Bonita High School FBLA</title>
+    <style>
+        /* Sidebar styles */
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            padding-top: 50px; /* Keep some space for the header */
+            transition: all 0.5s ease; /* Smooth transition for width change */
+        }
+
+        .sidebar.collapsed {
+            width: 50px; /* Collapsed width */
+        }
+
+        .sidebar h2 {
+            padding: 10px;
+            margin: 0;
+        }
+
+        .menu {
+            padding-left: 10px;
+            list-style: none;
+            margin: 0;
+        }
+
+        .menu li {
+            padding: 8px;
+            cursor: pointer;
+            position: relative; /* Added to make submenu absolute position relative to menu item */
+        }
+
+       .submenu {
+            display: none;
+        }
+
+        .menu li:hover .submenu {
+            display: block;
+        }
+
+        .submenu li {
+            padding-left: 20px;
+        }
+
+        /* Hover effect */
+        .menu li:hover {
+            background-color: #555;
+        }
+        /* Adjustments for the header */
+        header {
+            transition: all 0.5s ease; /* Smooth transition for margin change */
+        }
+
+        .collapsed header {
+            margin-left: 50px; /* Adjusted to accommodate the collapsed sidebar width */
+        }
+
+        /* Additional text styles */
+        .additional-text {
+            padding: 10px;
+            transition: all 0.5s ease; /* Smooth transition for margin change */
+            margin-top: 100px; /* Increased margin to create space between the sidebar and text */
+            margin-left: 200px; /* Adjusted to account for the sidebar width */
+        }
+
+        .collapsed .additional-text {
+            margin-left: 70px; /* Adjusted to account for the collapsed sidebar width */
+        }
+
+        /* Collapse button styles */
+        #collapse-btn {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            cursor: pointer;
+            font-size: 24px; /* Adjust icon size */
+        }
+
+        /* Main content styles */
+        main {
+            transition: all 0.5s ease; /* Smooth transition for margin change */
+        }
+
+        .collapsed-main {
+            margin-left: 50px; /* Adjusted to accommodate the collapsed sidebar width */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="BonitaFBLAlogo.jpg" alt="Bonita FBLA Logo" width="50" height="50">
+        <h1>Bonita High School FBLA</h1>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <h2>FBLA Information</h2>
+        <ul class="menu">
+            <li>General
+                <ul class="submenu">
+                    <li><a href="https://www.fbla.org/" class="button">FBLA website</a></li>
+                    <li><a href="General Information/23 FBLA dress code.pdf" class="button">Dress Code</a></li>
+                    <li><a href="General Code/study guide.html" class="button">Study Guide</a></li>
+                    <li><a href="General Information/23-24 High School Rating Sheet.pdf" class="button">Rating Sheet</a></li>
+                </ul>
+            </li>
+            <li>FBLA 2023-2024
+                <ul class="submenu">
+                    <li><a href="2023-2024 California FBLA Competitive Event Guidelines/California FBLA Competitive Events Planning Worksheet_2324.xlsx" class="button">Planning Worksheet</a></li>
+                    <li><a href="2023-2024 California FBLA Competitive Event Guidelines/2023-2024 California Competitive Event Guidelines.pdf" class="button">Event Guidelines</a></li>
+                    <li><a href="23-24 code/2023-2024_events_starting_at_section.html" class="button">Events at Section</a></li>
+                    <li><a href="23-24 code/2023-2024_events_starting_at_state.html" class="button">Events at State</a></li>
+                </ul>
+            </li>
+            <li>FBLA 2024-2025
+                <ul class="submenu">
+                    <li><a href="2024-2025 California FBLA Competitive Event Guidelines/FBLA 24-25 California guideline.pdf" class="button">Event Guidelines</a></li>
+                </ul>
+            </li>
+            <li>Other
+                <ul class="submenu">
+                    <li><a href="https://bd10490f-99ed-4677-b3c5-b23feeeef6a5-00-1mvrgv4iiq6hw.janeway.repl.co:3000/" class="button">Chat</a></li>
+                    <li><a href="General Code/registration.html" class="button">Registration</a></li>
+                    <li><a href="https://github.com/NuclearReactor314/BonitaFBLA.git" class="button">Top Secret</a></li>
+                    <li><a href="LICENSE.txt" class="button">License</a></li>
+                </ul>
+            </li>
+          <li><a herf="../index.html" class="button">Home</a></li>
+        </ul>
+        <div id="collapse-btn" onclick="toggleSidebar()">&#9776;</div>
+    </div>
+
+    <div class="additional-text">
+        <b>FBLA Objective</b>
+        <p>FBLA, aka Future Business Leaders of America, which is the only business competition called FBLA.</p>
+        <p>Check on the left part for more detail information instead of reading the useless sentence above.</p>
+    </div>
+
+    <main>
+        <iframe src="https://embed.styledcalendar.com/#eK5iYuyX7RXwpMozxjSu" title="Styled Calendar" class="styled-calendar-container" style="width: 100%; border: none;" data-cy="calendar-embed-iframe"></iframe>
+        <script async type="module" src="https://embed.styledcalendar.com/assets/parent-window.js"></script>
+    </main>
+
+    <footer>
+        <p>Contact the website builder: codingluser314@gmail.com</p>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+
+            const mainContent = document.querySelector('main');
+            mainContent.classList.toggle('collapsed-main');
+            
+            const additionalText = document.querySelector('.additional-text');
+            additionalText.classList.toggle('collapsed');
+
+            const header = document.querySelector('header');
+            header.classList.toggle('collapsed');
+            
+            adjustMargins(); // 调整边距
+        }
+        
+        function adjustMargins() {
+            const sidebar = document.getElementById('sidebar');
+            const additionalText = document.querySelector('.additional-text');
+            const header = document.querySelector('header');
+            const mainContent = document.querySelector('main');
+            const footer = document.querySelector('footer');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                additionalText.style.marginLeft = '70px';
+                header.style.marginLeft = '50px';
+                mainContent.style.marginLeft = '50px';
+                footer.style.marginLeft = '50px';
+            } else {
+                additionalText.style.marginLeft = '200px';
+                header.style.marginLeft = '200px';
+                mainContent.style.marginLeft = '200px';
+                footer.style.marginLeft = '200px';
+            }
+        }
+        
+        // 初始化调整边距
+        adjustMargins();
+    </script>
+
+</body>
+</html>
