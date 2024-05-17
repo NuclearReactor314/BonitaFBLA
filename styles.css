@@ -1,9 +1,9 @@
 heading {
-    background: url("landsacpe.jpg);
-    color: transparent;
+    background-image: url("landsacpe.jpg);
+    background-size: cover;
     background-clip: text;
-    front-size: 20px;
-    text-align: center;
+    -webkit-bakground-clip: text;
+    color: transparent;
 }
 body {
     font-family: 'Arial', sans-serif;
